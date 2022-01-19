@@ -8,10 +8,12 @@ html, body, .container {
     height: 100%;
 }
 
+
 .container {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 #board {
@@ -19,6 +21,8 @@ html, body, .container {
     height: 40vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    margin: 8rem;
 }
 
 .board-square {
@@ -26,4 +30,10 @@ html, body, .container {
     justify-content: center;
     align-items: center;
     border: solid 2px black;
+}
+
+.win-container {
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
 }

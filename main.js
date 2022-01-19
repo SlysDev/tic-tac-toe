@@ -1,3 +1,6 @@
+let mainContainer = document.querySelector('.container');
+
+
 const Gameboard = (function () {
     const board = document.querySelector('#board');
     const boardData = [];
@@ -10,9 +13,19 @@ const Gameboard = (function () {
         let occupied = false;
         element.addEventListener('click', () => {
             console.log(`${key} has been clicked!`);
-            occupied = true;
-            value = `${Player.value}`;
-            element.textContent = value;
+            Gameboard.boardData[key].occupied = true;
+            if (player1.ready == true) {
+                Gameboard.boardData[key].value = `${player1.value}`;
+                console.log(Gameboard.boardData[key].value);
+                player1.ready = false;
+            } else {
+                Gameboard.boardData[key].value = `${player2.value}`;
+                player1.ready = true;
+                player2.ready = false;
+            }
+            
+            element.textContent = Gameboard.boardData[key].value;
+            gameController.checkWin();
         });
         return { value, key, occupied, element };
     }
@@ -38,19 +51,49 @@ const gameController = (function () {
     };
     let xCount;
     let oCount;
-    const countSquares = Gameboard.boardData.forEach(square => {
-        if (square == 'X') {
-            oCount = 0;
-            xCount++
-        } else {
-            xCount = 0;
-            oCount++
-        }
-    });
     const checkWin = function () {
-        if (xCount = 3) {
-            console.log('X wins!');
+        if (Gameboard.boardData[0].value == 'x' && Gameboard.boardData[1].value == 'x' && Gameboard.boardData[2].value == 'x') {
+            win('x');
+        } else if (Gameboard.boardData[0].value == 'x' && Gameboard.boardData[3].value == 'x' && Gameboard.boardData[6].value == 'x') {
+            win('x');
+        } else if (Gameboard.boardData[0].value == 'x' && Gameboard.boardData[4].value == 'x' && Gameboard.boardData[8].value == 'x') {
+            win('x');
+        } else if (Gameboard.boardData[8].value == 'x' && Gameboard.boardData[7].value == 'x' && Gameboard.boardData[6].value == 'x') {
+            win('x');
+        } else if (Gameboard.boardData[8].value == 'x' && Gameboard.boardData[5].value == 'x' && Gameboard.boardData[2].value == 'x') {
+            win('x');
+        } else if (Gameboard.boardData[1].value == 'x' && Gameboard.boardData[4].value == 'x' && Gameboard.boardData[7].value == 'x') {
+            win('x');
+        } else if (Gameboard.boardData[3].value == 'x' && Gameboard.boardData[4].value == 'x' && Gameboard.boardData[5].value == 'x') {
+            win('x');
+        } else if (Gameboard.boardData[0].value == 'x' && Gameboard.boardData[4].value == 'x' && Gameboard.boardData[8].value == 'x') {
+            win('x');
+        } else if (Gameboard.boardData[2].value == 'x' && Gameboard.boardData[4].value == 'x' && Gameboard.boardData[6].value == 'x') {
+            win('x'); // If X has a tic-tac-toe
+        } else if (Gameboard.boardData[0].value == 'o' && Gameboard.boardData[1].value == 'o' && Gameboard.boardData[2].value == 'o') {
+            win('o');
+        } else if (Gameboard.boardData[0].value == 'o' && Gameboard.boardData[3].value == 'o' && Gameboard.boardData[6].value == 'o') {
+            win('o');
+        } else if (Gameboard.boardData[0].value == 'o' && Gameboard.boardData[4].value == 'o' && Gameboard.boardData[8].value == 'o') {
+            win('o');
+        } else if (Gameboard.boardData[8].value == 'o' && Gameboard.boardData[7].value == 'o' && Gameboard.boardData[6].value == 'o') {
+            win('o');
+        } else if (Gameboard.boardData[8].value == 'o' && Gameboard.boardData[5].value == 'o' && Gameboard.boardData[2].value == 'o') {
+            win('o');
+        } else if (Gameboard.boardData[0].value == 'o' && Gameboard.boardData[3].value == 'o' && Gameboard.boardData[6].value == 'o') {
+            win('o');
+        } else if (Gameboard.boardData[2].value == 'o' && Gameboard.boardData[4].value == 'o' && Gameboard.boardData[6].value == 'o') {
+            win('o'); // If O has a tic-tac-toe
         }
+    }
+    let winContainer = document.querySelector('.win-container');
+    winContainer.style.display = 'none';
+    const win = function (player) {
+        winContainer.style.display = 'flex';
+        mainContainer.style.display = 'none';
+        let winText = document.createElement('h1');
+        winText.textContent = `${player} has won!`;
+        winContainer.appendChild(winText);
     }
     return { startGame, checkWin };
 })();
@@ -62,12 +105,13 @@ const displayController = (function () {
 
 
 const Player = function () {
+    let ready = true;
     let value = 'x';
     const mark = function (space, value) {
         space.textContent = value;
         render();
     }
-    return { mark, value }
+    return { mark, value, ready }
 }
 
 
@@ -75,3 +119,7 @@ const Player = function () {
 
 
 gameController.startGame();
+
+let player1 = Player();
+let player2 = Player();
+player2.value = 'o';
