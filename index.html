@@ -7,17 +7,56 @@
     <title>Tic-Tac-Toe</title>
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
+
+    <div class="start-container">
+        <h1>Welcome to Tic Tac Toe!</h1>
+        <div class="info-container">
+            <div class="player-info-container">
+                <form action="">
+                    <h1>Player 1</h1>
+                    <div class="form-element">
+                        <h2>Name:</h2> <input type="text" name="player-name" id="player-one-name">
+                    </div>
+                    <div class="form-element">
+                        <h2>Value:</h2> <input type="text" name="player-value" id="player-one-value">
+                    </div>
+                </form>
+            </div>
+            <div class="player-info-container">
+                <form action="">
+                    <h1>Player 2</h1>
+                    <div class="form-element">
+                        <h2>Name:</h2> <input type="text" name="player-name" id="player-two-name">
+                    </div>
+                    <div class="form-element">
+                        <h2>Value:</h2> <input type="text" name="player-value" id="player-two-value">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <button id="start-btn">Start</button>
+    </div>
     
     <div class="container">
         <h1>Tic Tac Toe</h1>
         <div id="board">
 
         </div>
+        <button id="reset-btn">Reset</button>
     </div>
+    
     <div class="win-container">
-
+        <h1 id="end-text"></h1>
+        <button class="restart-btn">Restart</button>
+        <button class="new-game-btn">New Game</button>
+        
     </div>
     
     
